@@ -23,6 +23,7 @@
         osc_set_preference('bucket', Params::getParam('bucket'), 'amazons3', 'STRING');
         osc_set_preference('access_key', Params::getParam('access_key'), 'amazons3', 'STRING');
         osc_set_preference('secret_key', Params::getParam('secret_key'), 'amazons3', 'STRING');
+		osc_set_preference('cloudfront', Params::getParam('cloudfront'), 'amazons3', 'STRING');
         if(osc_version()<320) {
             echo '<div style="text-align:center; font-size:22px; background-color:#00bb00;"><p>' . __('Congratulations. The plugin is now configured', 'amazons3') . '.</p></div>' ;
             osc_reset_preferences();
@@ -60,6 +61,10 @@
                         <label for="secret_key"><?php _e('Secret key', 'amazons3'); ?></label>
                         <br/>
                         <input type="text" name="secret_key" id="secret_key" value="<?php echo osc_get_preference('secret_key', 'amazons3'); ?>"/>
+						<br/>
+                        <label for="cloudfront"><?php _e('Cloudfront Distribution (eg. d31ux1kh4lmohv.cloudfront.net)', 'amazons3'); ?></label>
+                        <br/>
+						<input type="text" name="cloudfront" id="cloudfront" value="<?php echo osc_get_preference('cloudfront', 'amazons3'); ?>"/>
                         <br/>
                         <?php printf(__("You need an Amazon S3 account. More information on %s",'amazons3k'), '<a href="http://aws.amazon.com/s3/">http://aws.amazon.com/s3/</a>'); ?>
                         <br/>
