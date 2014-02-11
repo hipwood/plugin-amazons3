@@ -35,11 +35,12 @@ function amazon_upload($resource) {
     $s3 = new S3(osc_get_preference('access_key', 'amazons3'), osc_get_preference('secret_key', 'amazons3'));
     @$s3->putBucket(osc_get_preference('bucket', 'amazons3'), S3::ACL_PUBLIC_READ);
     if (osc_keep_original_image()) {
-        $s3->putObjectFile(osc_content_path() . 'uploads/' . $resource['pk_i_id'] . '_original.jpg', osc_get_preference('bucket', 'amazons3'), $resource['pk_i_id'] . '_original.jpg', S3::ACL_PUBLIC_READ);
+        $s3->putObjectFile(str_replace("oc-content/", $resource['s_path'], osc_content_path()) . $resource['pk_i_id'] . '_original.'. $resource['s_extension'], osc_get_preference('bucket', 'amazons3'), $resource['pk_i_id'] . '_original.'. $resource['s_extension'], S3::ACL_PUBLIC_READ);
     }
-    $s3->putObjectFile(osc_content_path() . 'uploads/' . $resource['pk_i_id'] . '.jpg', osc_get_preference('bucket', 'amazons3'), $resource['pk_i_id'] . '.jpg', S3::ACL_PUBLIC_READ);
-    $s3->putObjectFile(osc_content_path() . 'uploads/' . $resource['pk_i_id'] . '_preview.jpg', osc_get_preference('bucket', 'amazons3'), $resource['pk_i_id'] . '_preview.jpg', S3::ACL_PUBLIC_READ);
-    $s3->putObjectFile(osc_content_path() . 'uploads/' . $resource['pk_i_id'] . '_thumbnail.jpg', osc_get_preference('bucket', 'amazons3'), $resource['pk_i_id'] . '_thumbnail.jpg', S3::ACL_PUBLIC_READ);
+
+    $s3->putObjectFile(str_replace("oc-content/", $resource['s_path'], osc_content_path()) . $resource['pk_i_id'] . '.'. $resource['s_extension'], osc_get_preference('bucket', 'amazons3'), $resource['pk_i_id'] . '.'. $resource['s_extension'], S3::ACL_PUBLIC_READ);
+    $s3->putObjectFile(str_replace("oc-content/", $resource['s_path'], osc_content_path()) . $resource['pk_i_id'] . '_preview.'. $resource['s_extension'], osc_get_preference('bucket', 'amazons3'), $resource['pk_i_id'] . '_preview.'. $resource['s_extension'], S3::ACL_PUBLIC_READ);
+    $s3->putObjectFile(str_replace("oc-content/", $resource['s_path'], osc_content_path()) . $resource['pk_i_id'] . '_thumbnail.'. $resource['s_extension'], osc_get_preference('bucket', 'amazons3'), $resource['pk_i_id'] . '_thumbnail.'. $resource['s_extension'], S3::ACL_PUBLIC_READ);
     amazon_unlink_resource($resource);
 }
 
